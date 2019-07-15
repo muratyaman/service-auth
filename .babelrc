@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true,
+          "node": true
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "esmodules": true,
+              "node": true
+            }
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -62,3 +62,6 @@ typings/
 
 .idea/
 
+build/
+
+db.json

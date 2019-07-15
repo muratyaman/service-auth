@@ -4,7 +4,17 @@
   "description": "basic service for auth",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "NODE_ENV=dev node index.js",
+    "start": "NODE_ENV=production node index-live.js",
+    "restart:live": "npm run clean && npm run build && npm run start",
+    "clean": "rm -rf build",
+    "build": "babel src -d build --ignore src/**/*.test.js",
+    "test": "jest",
+    "test:dev": "jest --no-cache",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:bdd": "echo \"no test specified\" && exit 0",
+    "certs-dev": "openssl req -nodes -new -x509 -keyout ./security/server.key -out ./security/server.cert"
   },
   "repository": {
     "type": "git",
@@ -18,5 +28,21 @@
   "bugs": {
     "url": "https://github.com/muratyaman/service-auth/issues"
   },
-  "homepage": "https://github.com/muratyaman/service-auth#readme"
+  "homepage": "https://github.com/muratyaman/service-auth#readme",
+  "dependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/register": "^7.4.4",
+    "body-parser": "^1.19.0",
+    "date-fns": "^1.30.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
 }
