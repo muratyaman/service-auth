@@ -40,7 +40,8 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
-    "lowdb": "^1.0.0"
+    "lowdb": "^1.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^24.8.0"

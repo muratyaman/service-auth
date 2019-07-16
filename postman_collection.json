@@ -11,9 +11,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{service-auth}}/api/auth",
+					"raw": "{{host}}/api/auth",
 					"host": [
-						"{{service-auth}}"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -29,9 +29,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{service-auth}}/api/auth/users",
+					"raw": "{{host}}/api/auth/users",
 					"host": [
-						"{{service-auth}}"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -54,9 +54,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{service-auth}}/api/auth/user",
+					"raw": "{{host}}/api/auth/user",
 					"host": [
-						"{{service-auth}}"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -84,9 +84,9 @@
 					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"JohnSmith\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Smith\"\n}"
 				},
 				"url": {
-					"raw": "{{service-auth}}/api/auth/users",
+					"raw": "{{host}}/api/auth/users",
 					"host": [
-						"{{service-auth}}"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -127,9 +127,9 @@
 					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"JohnSmith\"\n}"
 				},
 				"url": {
-					"raw": "{{service-auth}}/api/auth/login",
+					"raw": "{{host}}/api/auth/login",
 					"host": [
-						"{{service-auth}}"
+						"{{host}}"
 					],
 					"path": [
 						"api",
