@@ -2,10 +2,10 @@
   "name": "service-auth",
   "version": "1.0.0",
   "description": "basic service for auth",
-  "main": "index.js",
+  "main": "start-auth-dev.js",
   "scripts": {
-    "start:dev": "NODE_ENV=dev node index.js",
-    "start": "NODE_ENV=production node index-live.js",
+    "start:dev": "NODE_ENV=dev node start-auth-dev.js",
+    "start": "NODE_ENV=production node start-auth-live.js",
     "restart:live": "npm run clean && npm run build && npm run start",
     "clean": "rm -rf build",
     "build": "babel src -d build --ignore src/**/*.test.js",
