@@ -40,7 +40,7 @@ export const api_login = (req, res) => {
   } catch (err) {
     error = err.message;
   }
-  logDebug('POST /api/auth/login END', { token, error, user });
+  logDebug('POST /api/auth/login END', { token, error, data });
   res.json({ token, error, data });
 };
 
