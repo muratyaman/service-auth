@@ -40,7 +40,19 @@ export const api_login = (req, res) => {
   } catch (err) {
     error = err.message;
   }
-  logDebug('POST /api/auth/login END', { token, error, user });
+  logDebug('POST /api/auth/login END', { token, error, data });
+  res.json({ token, error, data });
+};
+
+export const api_logout = (req, res) => {
+  logDebug('DELETE /api/auth/logout');
+  if (!req.user) return res.sendStatus(401);// protected * * *
+  let token, data, error;
+  
+  // do nothing, as we do not save JWT in anywhere; only app must get rid of it!
+  data = true;
+  
+  logDebug('DELETE /api/auth/logout', { token, error, data });
   res.json({ token, error, data });
 };
 
