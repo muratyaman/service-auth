@@ -2,8 +2,8 @@ import bodyParser from 'body-parser';
 //import cors from 'cors';
 //import express from 'express';
 import jwt from 'express-jwt';
-import { JWT_SECRET /*, PUBLIC_STATIC_DIR */ } from './config';
 import {
+  api_init,
   api_err_handler,
   api_login,
   api_logout,
@@ -16,12 +16,13 @@ import {
   api_version,
 } from './api';
 
-export const initApp = (app) => {
+export const initApp = async (app, config) => {
+  await api_init(config);
   //app.options('*', cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(jwt({ secret: JWT_SECRET, credentialsRequired: false }));
-  //app.use(express.static(PUBLIC_STATIC_DIR));
+  app.use(jwt({ secret: config.JWT_SECRET, credentialsRequired: false }));
+  //app.use(express.static(config.PUBLIC_STATIC_DIR));
   app.use(api_err_handler);
   app.get('/api/auth', api_version);
   app.post('/api/auth/login', api_login);

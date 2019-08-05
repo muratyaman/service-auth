@@ -1,13 +1,15 @@
 import jwtManager from 'jsonwebtoken';
 import { logDebug } from './log';
-import { JWT_SECRET, VERSION, IS_DEV } from './config';
-import {
-  newId,
-  usersList,
-  usersRepo,
-} from './db';
+import { newId, newDb } from './db';
 
-const debugOn = IS_DEV;
+let config, db;
+
+const debugOn = () => config.IS_DEV;
+
+export const api_init = async (configIn) => {
+  config = configIn;
+  db = await newDb(config);
+};
 
 export const api_err_handler = (err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
@@ -18,7 +20,7 @@ export const api_err_handler = (err, req, res, next) => {
 };
 
 export const api_version = (req, res) => {
-  res.json({ ts: new Date(), version: VERSION });
+  res.json({ ts: new Date(), version: config.VERSION });
 };
 
 export const api_login = (req, res) => {
@@ -29,10 +31,11 @@ export const api_login = (req, res) => {
     if (username && password) {
       username = username.toLowerCase();
       const found = usersRepo.findOne({ username });
-      if (found && found.password === password) {
+      // TODO: compare hashed passwords
+      if (found && found.password_hash === password) {
         const { id, first_name, last_name } = found;
         const userData = { id, username, first_name, last_name };
-        token = jwtManager.sign(userData, JWT_SECRET);
+        token = jwtManager.sign(userData, config.JWT_SECRET);
         data = { id, username, first_name, last_name };
         error = null;
       }
@@ -68,7 +71,10 @@ export const api_users = (req, res) => {
   logDebug('GET /api/auth/users');
   if (!req.user) return res.sendStatus(401);// protected * * *
   
-  const data = usersList();
+  const data = usersRepo().listAll().map(row => {
+    const { id, username, first_name, last_name } = row;
+    return { id, username, first_name, last_name };// ignore password_hash
+  });
   res.json({ data });
 };
 
@@ -80,18 +86,18 @@ export const api_users_create = async (req, res) => {
   try {
     let { username, password, first_name, last_name } = req.body;
     params = { username };
-    const userRow = usersRepo.findOne(params);
+    const userRow = usersRepo().findOne(params);
     if (userRow) throw new Error('Invalid username');
     
     const userData = {
       id: newId(), username, first_name, last_name,
       password, // TODO: hash password
     };
-    data = usersRepo.insertOne(userData);
+    data = usersRepo().insertOne(userData);
     
   } catch (err) {
     error = err.message;
-    if (debugOn) {
+    if (debugOn()) {
       debug = err;
     }
     logDebug(urlInfo + ' ERR', err);
@@ -109,14 +115,14 @@ export const api_users_retrieve = async (req, res) => {
   let data, error, debug, params;
   try {
     params = { username };
-    const userRow = usersRepo.findOne(params);
+    const userRow = usersRepo().findOne(params);
     if (!userRow) throw new Error('User not found');
     
     data = userRow;
     
   } catch (err) {
     error = err.message;
-    if (debugOn) {
+    if (debugOn()) {
       debug = err;
     }
     logDebug(urlInfo + ' ERR', err);
@@ -133,19 +139,20 @@ export const api_users_update = async (req, res) => {
   
   let data, error, debug, params;
   try {
+    const repo = usersRepo();
     params = { username };
-    const idx = usersRepo.findIdx(params);
-    const userRow = usersRepo.findOne(params);
+    const userRow = repo.findOne(params);
     if (!userRow) throw new Error('User not found');
     
     // username, password, first_name, last_name
-    // but can not change username
+    // TODO: can not change username ?!
+    // TODO: password_hash = hash(password)
     let userModifiedData = Object.assign({}, userRow, req.body, { username });
-    data = usersRepo.updateOne(idx, userModifiedData);
+    data = repo.updateOne(userRow.id, userModifiedData);
     
   } catch (err) {
     error = err.message;
-    if (debugOn) {
+    if (debugOn()) {
       debug = err;
     }
     logDebug(urlInfo + ' ERR', err);
@@ -162,13 +169,14 @@ export const api_users_delete = async (req, res) => {
   
   let data, error, debug, params;
   try {
+    const repo = usersRepo();
     params = { username };
-    const userRow = usersRepo.findOne(params);
+    const userRow = repo.findOne(params);
     if (!userRow) throw new Error('User not found');
-    data = usersRepo.deleteOne(params);
+    data = repo.deleteOne(userRow.id);
   } catch (err) {
     error = err.message;
-    if (debugOn) {
+    if (debugOn()) {
       debug = err;
     }
     logDebug(urlInfo + ' ERR', err);
