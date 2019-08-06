@@ -24,12 +24,17 @@ if (!JWT_SECRET) {
   throw new Error('JWT_SECRET must be defined');
 }
 
+export const LOCALE = penv.LOCALE || 'en-GB';
+
 //export const PUBLIC_STATIC_DIR = penv.PUBLIC_STATIC_DIR || path.join(__dirname, '..', 'public');
 export default Object.assign({}, penv, {
+  VERSION,
   IS_PRODUCTION,
   IS_TEST,
   IS_DEV,
   CONSOLE_LOG,
   HTTP_PORT,
   DB_ADAPTER,
+  JWT_SECRET,
+  LOCALE,
 });

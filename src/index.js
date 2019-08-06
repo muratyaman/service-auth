@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import config from './config';
-import { logDebug } from './log';
+import { logDebug } from './helpers';
 import { initApp } from './app';
 
 (async () => {

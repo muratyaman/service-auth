@@ -1,7 +1,7 @@
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import Memory from 'lowdb/adapters/Memory';
-import { logDebug } from '../log';
+import { logDebug } from '../helpers';
 
 let db;
 
@@ -19,7 +19,7 @@ export const newDb = async (config, data = {}) => {
   return db;
 };
 
-export const dbRepo = (name) => {
+export const newDbRepo = (name) => {
   const repoDesc = `dbRepo(${name})`;
   logDebug('NEW', repoDesc);
   

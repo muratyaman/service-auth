@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 //import assert from 'assert';
-import { logDebug } from '../log';
+import { logDebug } from '../helpers';
 
 let db, dbClient;
 
@@ -29,7 +29,7 @@ export const dbColl = (name) => {
   return db.collection(name);
 };
 
-export const dbRepo = (name) => {
+export const newDbRepo = (name) => {
   const repoDesc = `dbRepo(${name})`;
   logDebug('NEW', repoDesc);
   return {

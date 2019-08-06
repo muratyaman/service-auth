@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 //import { parse, format } from 'date-fns';
 import dbAdapters from './dbAdapters';
-import { logDebug } from './log';
+import { logDebug } from './helpers';
 import mockData from './mockData';
 
 export const newId = () => uuid();
@@ -20,6 +20,7 @@ let dbAdapter, db;
  */
 export const newDb = async (config) => {
   const da = config.DB_ADAPTER;
+  logDebug('newDb adapter', da);
   if (!(da in dbAdapters)) {
     throw new Error('Unknown db adapter ' + da);
   }
@@ -36,6 +37,6 @@ export const newDb = async (config) => {
   return db;
 };
 
-export const usersRepo = () => dbAdapter.newRepo('users');
+export const usersRepo = () => dbAdapter.newDbRepo('users');
 
 export default () => ({ newId, newDb, usersRepo });
