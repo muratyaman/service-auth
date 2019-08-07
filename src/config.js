@@ -26,6 +26,13 @@ if (!JWT_SECRET) {
 
 export const LOCALE = penv.LOCALE || 'en-GB';
 
+export const jwtConfig = () => {
+  return {
+    secret: JWT_SECRET,
+    credentialsRequired: false,
+  };
+};
+
 //export const PUBLIC_STATIC_DIR = penv.PUBLIC_STATIC_DIR || path.join(__dirname, '..', 'public');
 export default Object.assign({}, penv, {
   VERSION,
@@ -37,4 +44,6 @@ export default Object.assign({}, penv, {
   DB_ADAPTER,
   JWT_SECRET,
   LOCALE,
+  jwtConfig,
 });
+

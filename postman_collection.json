@@ -27,7 +27,13 @@
 			"name": "GET /api/auth/users",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{host}}/api/auth/users",
 					"host": [
@@ -81,7 +87,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"JohnSmith\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Smith\"\n}"
+					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"John.Sm1th\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Smith\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/api/auth/users",
@@ -124,7 +130,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"JohnSmith\"\n}"
+					"raw": "{\n\t\"username\": \"john.smith\",\n\t\"password\": \"John.Sm1th\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/api/auth/login",

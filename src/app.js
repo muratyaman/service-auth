@@ -21,7 +21,7 @@ export const initApp = async (app, config) => {
   //app.options('*', cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(jwt({ secret: config.JWT_SECRET, credentialsRequired: false }));
+  app.use(jwt(config.jwtConfig()));
   //app.use(express.static(config.PUBLIC_STATIC_DIR));
   app.use(api_err_handler);
   app.get('/api/auth', api_version);
