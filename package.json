@@ -37,16 +37,16 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "date-fns": "^1.30.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "lowdb": "^1.0.0",
-    "mongodb": "^3.3.0-beta2",
-    "pg": "^7.12.0",
+    "mongodb": "^3.3.0",
+    "pg": "^7.12.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.9.0"
   }
 }
