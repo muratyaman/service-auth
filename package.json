@@ -1,6 +1,6 @@
 {
   "name": "service-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "basic service for auth",
   "main": "start-auth-dev.js",
   "scripts": {
